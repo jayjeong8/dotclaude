@@ -58,6 +58,7 @@
       "Skill(testcase)",
       "Skill(pr-review)",
       "Skill(stepwise-refactor)",
+      "Skill(domain-knowledge)",
       "mcp__ide__getDiagnostics"
     ],
     "deny": [],
