@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git restore:*)",
+      "Bash(git stash:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git checkout:*)",
+      "Bash(git commit:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git fetch:*)",
+      "Bash(git reset:*)",
+      "Bash(git mv:*)",
+      "Bash(git worktree:*)",
+      "Bash(git branch:*)",
+      "Bash(git --no-pager log:*)",
+      "Bash(git --no-pager log --first-parent --oneline -10 HEAD | grep -m1:*)",
+      "Bash(git reflog show:*)",
+      "Bash(git --no-pager diff:*)",
+      "Bash(git --no-pager status:*)",
+      "Bash(git --no-pager rev-parse:*)",
+      "Bash(git --no-pager branch:*)",
+      "Bash(git --no-pager merge-base:*)",
+      "Bash(ls:*)",
+      "Bash(mv:*)",
+      "Bash(mkdir:*)",
+      "Bash(rm:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(md5:*)",
+      "Bash(wc:*)",
+      "Bash(cmp:*)",
+      "Bash(xargs ls:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx turbo build:*)",
+      "Bash(npx biome check:*)",
+      "Bash(npx prettier:*)",
+      "Bash(npm run:*)",
+      "Bash(pnpm lint:fix:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm eslint:*)",
+      "Bash(pnpm tsc:*)",
+      "Bash(pnpm exec eslint:*)",
+      "Bash(pnpm exec tsc:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh api:*)",
+      "Skill(commit)",
+      "Skill(create-pr)",
+      "Skill(update-pr)",
+      "Skill(testcase)",
+      "Skill(pr-review)",
+      "Skill(stepwise-refactor)",
+      "mcp__ide__getDiagnostics"
+    ],
+    "deny": [],
+    "ask": [
+      "Bash(git push:*)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/user_prompt_submit.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '💡 코드 변경됨. /code-review, /naming, /stepwise-refactor 사용 가능'"
+          }
+        ]
+      }
+    ]
+  },
+  "alwaysThinkingEnabled": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754288260366
+  }
+}

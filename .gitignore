@@ -1,0 +1,15 @@
+# 기본: 모든 파일 무시
+*
+
+# Git 관리 대상만 허용
+!.gitignore
+!CLAUDE.md
+!settings.json
+
+# 폴더 전체 허용
+!skills/
+!skills/**
+!agents/
+!agents/**
+!hooks/
+!hooks/**
