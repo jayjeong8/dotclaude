@@ -9,24 +9,30 @@ description: 구현 내용을 기반으로 QA 테스트 케이스를 생성하�
 
 ## 실행 절차
 
-1. **관련 문서 확인**
+1. **프로젝트 루트 확인**
+   ```bash
+   PROJECT_ROOT=$(git rev-parse --show-toplevel)
+   SPECS_DIR="$PROJECT_ROOT/.claude/specs"
+   ```
+
+2. **관련 문서 확인**
    - 브랜치명에서 티켓 번호 추출 (예: `sup-596`)
-   - `.claude/specs/` 폴더의 스펙 문서 확인
+   - `$SPECS_DIR` 폴더의 스펙 문서 확인
    - 기존 테스트케이스 파일 확인 (`*-testcase.md`)
 
-2. **변경사항 분석**
+3. **변경사항 분석**
    ```bash
    git --no-pager diff <base-branch>...HEAD
    ```
 
-3. **테스트 시나리오 도출**
+4. **테스트 시나리오 도출**
    - 정상 동작 케이스
    - 엣지 케이스
    - 에러/예외 케이스
    - 피쳐플래그 ON/OFF 케이스 (기획에 피쳐플래그가 명시된 경우에만)
 
-4. **테스트케이스 파일 생성/업데이트**
-   - 파일명: `.claude/specs/{티켓번호}-testcase.md`
+5. **테스트케이스 파일 생성/업데이트**
+   - 파일명: `$SPECS_DIR/{티켓번호}-testcase.md`
 
 ## 테스트케이스 문서 구조
 
