@@ -13,3 +13,5 @@
 !agents/**
 !hooks/
 !hooks/**
+!scripts/
+!scripts/**
