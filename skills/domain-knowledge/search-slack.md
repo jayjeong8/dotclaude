@@ -1,16 +1,26 @@
 # Slack 검색 가이드
 
+## MCP 설정 상태
+
+Slack MCP 서버가 설치됨 (`mcp.slack.com/sse`, SSE 방식).
+OAuth 인증 완료 후 `mcp__slack__*` 도구가 활성화된다.
+
 ## MCP 유무에 따른 분기
 
 ### Slack MCP가 활성화된 경우
 
 `mcp__slack__` 접두사의 도구가 사용 가능하면 MCP를 통해 직접 검색한다.
 
-**주요 도구 (환경에 따라 이름이 다를 수 있음)**:
-- `mcp__slack__search_messages` — 메시지 검색
-- `mcp__slack__list_channels` — 채널 목록 조회
-- `mcp__slack__get_channel_history` — 채널 히스토리 조회
+**주요 도구** (공식 Slack MCP 서버 기준):
+- `mcp__slack__search_messages` — 메시지 검색 (query, sort, sort_dir, count)
+- `mcp__slack__search_files` — 파일 검색
+- `mcp__slack__get_channels` — 채널 목록 조회
+- `mcp__slack__get_channel_messages` — 채널 메시지 조회
 - `mcp__slack__get_thread_replies` — 스레드 답글 조회
+- `mcp__slack__get_users` — 사용자 목록 조회
+
+> **참고**: 실제 도구명은 MCP 서버 버전에 따라 다를 수 있다.
+> 사용 가능한 도구는 `mcp__slack__` 접두사로 자동 감지할 것.
 
 **검색 절차**:
 1. 관련 채널 특정 (채널명을 알면 바로 검색, 모르면 채널 목록에서 탐색)
@@ -18,11 +28,17 @@
 3. 유관 메시지의 스레드 답글까지 확인
 4. 결과 정리: 작성자, 날짜, 채널, 핵심 내용
 
-### Slack MCP가 없는 경우
+### Slack MCP가 없거나 인증 미완료인 경우
 
-사용자에게 직접 검색을 요청한다.
+`mcp__slack__*` 도구가 없으면 사용자에게 직접 검색을 요청한다.
 
-**안내 템플릿**:
+**인증 안내** (MCP 서버는 설치되었으나 인증이 안 된 경우):
+```
+Slack MCP가 설치되어 있지만 인증이 필요합니다.
+Claude Code를 재시작하면 OAuth 인증 플로우가 시작됩니다.
+```
+
+**검색 요청 템플릿** (MCP 사용 불가 시):
 ```
 Slack에서 직접 검색이 필요합니다:
 
@@ -31,8 +47,6 @@ Slack에서 직접 검색이 필요합니다:
    - 추천 필터: `in:#[채널명]` `after:2025-01-01`
 
 2. 관련 메시지를 찾으시면 내용을 공유해 주세요.
-
-또는 Slack MCP를 설정하면 자동 검색이 가능합니다.
 ```
 
 ## 검색 팁
