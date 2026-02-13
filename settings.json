@@ -59,6 +59,7 @@
       "Skill(pr-review)",
       "Skill(stepwise-refactor)",
       "Skill(domain-knowledge)",
+      "Skill(spec-interview)",
       "mcp__ide__getDiagnostics",
       "mcp__playwright__browser_navigate",
       "mcp__playwright__browser_snapshot",
