@@ -9,18 +9,26 @@ Linear 이슈를 읽고, 코드베이스를 탐색하고, 인터뷰를 거쳐 �
 
 ## 실행 절차
 
-### 1단계: 이슈 가져오기
+### 1단계: 컨텍스트 파악
 
-**이슈 번호 결정 순서:**
-1. `$ARGUMENTS`가 제공된 경우 → 해당 값 사용
+**`$ARGUMENTS` 판별:**
+- 이슈 ID 패턴 (`ABC-123`, UUID 등) → **이슈 기반 모드**
+- 일반 텍스트 또는 없음 → **독립 스펙 모드**
+
+#### 이슈 기반 모드
+1. `$ARGUMENTS`가 이슈 ID → 해당 값 사용
 2. `$ARGUMENTS`가 없는 경우 → `git branch --show-current`로 현재 브랜치 이름 확인
    - 브랜치 이름에 이슈 번호 패턴(예: `sup-907`, `eng-123`)이 포함되어 있으면 → 해당 번호 사용
-   - 이슈 번호가 없으면 → `AskUserQuestion`으로 Linear 이슈 ID 또는 URL을 질문
+   - 이슈 번호가 없으면 → **독립 스펙 모드**로 전환
+3. `mcp__claude_ai_Linear__get_issue`로 이슈 조회
+4. 부모 이슈가 있으면 (`parentId` 존재) 부모 이슈도 함께 조회하여 상위 컨텍스트 파악
+5. 복잡도 판단: **Simple** (하루 안에 완료 가능) vs **Complex** (여러 서브태스크 필요)
+6. 이슈 제목/설명의 **언어를 감지**하여 스펙 작성 언어로 사용
 
-- `mcp__claude_ai_Linear__get_issue`로 이슈 조회
-- 부모 이슈가 있으면 (`parentId` 존재) 부모 이슈도 함께 조회하여 상위 컨텍스트 파악
-- 복잡도 판단: **Simple** (하루 안에 완료 가능) vs **Complex** (여러 서브태스크 필요)
-- 이슈 제목/설명의 **언어를 감지**하여 스펙 작성 언어로 사용
+#### 독립 스펙 모드
+- `$ARGUMENTS`의 텍스트를 스펙 주제로 사용
+- 복잡도는 **Simple**로 기본 설정 (인터뷰 중 변경 가능)
+- 스펙 작성 언어는 `$ARGUMENTS`의 언어를 따름
 
 ### 2단계: 코드베이스 탐색
 관련 코드를 탐색하여 구현 컨텍스트를 파악합니다.
@@ -178,11 +186,18 @@ path/to/affected/module/
 **Rollout**: Deployment strategy (feature flag, gradual, big bang, etc.)
 ```
 
-### 5단계: 변경사항 적용
-- **Simple**: `mcp__claude_ai_Linear__update_issue`로 이슈 description 업데이트
-- **Complex**:
-  - `mcp__claude_ai_Linear__create_issue`로 서브태스크 생성 (`parentId` 설정)
-  - 부모 이슈 description을 orchestration 내용으로 업데이트
+### 5단계: 스펙 저장
+
+#### 이슈 기반 모드
+`AskUserQuestion`으로 Linear 이슈에 스펙을 업데이트할지 확인:
+- **승인 시**:
+  - **Simple**: `mcp__claude_ai_Linear__update_issue`로 이슈 description 업데이트
+  - **Complex**: 서브태스크 생성 (`parentId` 설정) + 부모 이슈 description을 orchestration 내용으로 업데이트
+- **거부 시**: `.claude/specs/{issue-id}.md`에 로컬 파일로 저장
+
+#### 독립 스펙 모드
+- `.claude/specs/{kebab-case-제목}.md`에 파일로 저장
+- 파일 상단에 `# {스펙 제목}`을 H1 헤더로 추가
 
 ## 주의사항
 - 코드베이스를 먼저 탐색하고 질문하기 - 사용자에게 부담 주지 않기
@@ -190,11 +205,11 @@ path/to/affected/module/
 - Acceptance Criteria를 Code Changes / Tests / Quality Gates로 명확히 분리
 
 ## 체크리스트
-- [ ] 이슈 조회 완료
+- [ ] 컨텍스트 파악 완료 (이슈 기반 / 독립 스펙 판별)
 - [ ] 코드베이스 탐색, 관련 파일/패턴 식별 완료
 - [ ] 인터뷰 완료, 비즈니스 결정 확인됨
 - [ ] 스펙에 구체적인 파일 경로 포함됨
 - [ ] Acceptance Criteria가 Code Changes / Tests / Quality Gates로 분리됨
 - [ ] End State에 Files Changed 테이블 포함됨
 - [ ] Test Targets 섹션에 테스터용 패턴 명시됨
-- [ ] 스펙이 Linear 이슈에 저장됨
+- [ ] 스펙이 적절한 위치에 저장됨 (Linear 이슈 또는 `.claude/specs/`)
