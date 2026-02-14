@@ -1,18 +1,25 @@
 ---
 name: spec-interview
-description: Linear 티켓을 읽고 코드베이스를 탐색한 뒤, 인터뷰를 통해 구현 가능한 상세 스펙을 작성합니다. "스펙 작성", "스펙 인터뷰", "spec interview" 등의 요청 시 사용합니다.
+description: Linear 이슈를 읽고 코드베이스를 탐색한 뒤, 인터뷰를 통해 구현 가능한 상세 스펙을 작성합니다. "스펙 작성", "스펙 인터뷰", "spec interview" 등의 요청 시 사용합니다.
 ---
 
 # Spec Interview
 
-Linear 티켓 `$ARGUMENTS`를 읽고, 코드베이스를 탐색하고, 인터뷰를 거쳐 구현 가능한 상세 스펙을 작성합니다.
+Linear 이슈를 읽고, 코드베이스를 탐색하고, 인터뷰를 거쳐 구현 가능한 상세 스펙을 작성합니다.
 
 ## 실행 절차
 
-### 1단계: 티켓 가져오기
-- `mcp__claude_ai_Linear__get_issue`로 티켓 조회
+### 1단계: 이슈 가져오기
+
+**이슈 번호 결정 순서:**
+1. `$ARGUMENTS`가 제공된 경우 → 해당 값 사용
+2. `$ARGUMENTS`가 없는 경우 → `git branch --show-current`로 현재 브랜치 이름 확인
+   - 브랜치 이름에 이슈 번호 패턴(예: `sup-907`, `eng-123`)이 포함되어 있으면 → 해당 번호 사용
+   - 이슈 번호가 없으면 → `AskUserQuestion`으로 Linear 이슈 ID 또는 URL을 질문
+
+- `mcp__claude_ai_Linear__get_issue`로 이슈 조회
 - 복잡도 판단: **Simple** (하루 안에 완료 가능) vs **Complex** (여러 서브태스크 필요)
-- 티켓 제목/설명의 **언어를 감지**하여 스펙 작성 언어로 사용
+- 이슈 제목/설명의 **언어를 감지**하여 스펙 작성 언어로 사용
 
 ### 2단계: 코드베이스 탐색
 관련 코드를 탐색하여 구현 컨텍스트를 파악합니다.
@@ -35,10 +42,10 @@ Linear 티켓 `$ARGUMENTS`를 읽고, 코드베이스를 탐색하고, 인터뷰
 
 ### 4단계: 스펙 작성
 
-> **언어**: 티켓과 동일한 언어로 작성 (한국어/영어 등)
+> **언어**: 이슈와 동일한 언어로 작성 (한국어/영어 등)
 
 #### Case A: Simple 태스크
-티켓 description에 직접 작성 (STICC 구조, 헤더 텍스트 없이):
+이슈 description에 직접 작성 (STICC 구조, 헤더 텍스트 없이):
 
 ```markdown
 ## Situation (상황)
@@ -107,7 +114,7 @@ path/to/affected/module/
 ```
 
 #### Case B: Complex 태스크
-서브태스크를 생성하고 부모 티켓을 Orchestration Ticket으로 전환:
+서브태스크를 생성하고 부모 이슈를 Orchestration Issue로 전환:
 
 ```markdown
 ## Execution Plan for AI Agent
@@ -171,22 +178,22 @@ path/to/affected/module/
 ```
 
 ### 5단계: 변경사항 적용
-- **Simple**: `mcp__claude_ai_Linear__update_issue`로 티켓 description 업데이트
+- **Simple**: `mcp__claude_ai_Linear__update_issue`로 이슈 description 업데이트
 - **Complex**:
   - `mcp__claude_ai_Linear__create_issue`로 서브태스크 생성 (`parentId` 설정)
-  - 부모 티켓 description을 orchestration 내용으로 업데이트
+  - 부모 이슈 description을 orchestration 내용으로 업데이트
 
 ## 주의사항
 - 코드베이스를 먼저 탐색하고 질문하기 - 사용자에게 부담 주지 않기
-- "STICC Framework" 같은 메타 텍스트를 티켓에 포함하지 않기
+- "STICC Framework" 같은 메타 텍스트를 이슈에 포함하지 않기
 - Acceptance Criteria를 Code Changes / Tests / Quality Gates로 명확히 분리
 
 ## 체크리스트
-- [ ] 티켓 조회 완료
+- [ ] 이슈 조회 완료
 - [ ] 코드베이스 탐색, 관련 파일/패턴 식별 완료
 - [ ] 인터뷰 완료, 비즈니스 결정 확인됨
 - [ ] 스펙에 구체적인 파일 경로 포함됨
 - [ ] Acceptance Criteria가 Code Changes / Tests / Quality Gates로 분리됨
 - [ ] End State에 Files Changed 테이블 포함됨
 - [ ] Test Targets 섹션에 테스터용 패턴 명시됨
-- [ ] 스펙이 Linear 티켓에 저장됨
+- [ ] 스펙이 Linear 이슈에 저장됨
