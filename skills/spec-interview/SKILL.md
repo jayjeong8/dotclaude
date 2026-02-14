@@ -18,6 +18,7 @@ Linear 이슈를 읽고, 코드베이스를 탐색하고, 인터뷰를 거쳐 �
    - 이슈 번호가 없으면 → `AskUserQuestion`으로 Linear 이슈 ID 또는 URL을 질문
 
 - `mcp__claude_ai_Linear__get_issue`로 이슈 조회
+- 부모 이슈가 있으면 (`parentId` 존재) 부모 이슈도 함께 조회하여 상위 컨텍스트 파악
 - 복잡도 판단: **Simple** (하루 안에 완료 가능) vs **Complex** (여러 서브태스크 필요)
 - 이슈 제목/설명의 **언어를 감지**하여 스펙 작성 언어로 사용
 
