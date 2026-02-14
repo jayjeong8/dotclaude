@@ -3,15 +3,12 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git restore:*)",
       "Bash(git stash:*)",
       "Bash(git cherry-pick:*)",
-      "Bash(git checkout:*)",
       "Bash(git commit:*)",
       "Bash(git log:*)",
       "Bash(git show:*)",
       "Bash(git fetch:*)",
-      "Bash(git reset:*)",
       "Bash(git mv:*)",
       "Bash(git worktree:*)",
       "Bash(git branch:*)",
@@ -26,7 +23,6 @@
       "Bash(ls:*)",
       "Bash(mv:*)",
       "Bash(mkdir:*)",
-      "Bash(rm:*)",
       "Bash(find:*)",
       "Bash(cat:*)",
       "Bash(grep:*)",
@@ -51,7 +47,6 @@
       "Bash(gh pr view:*)",
       "Bash(gh pr edit:*)",
       "Bash(gh pr list:*)",
-      "Bash(gh api:*)",
       "Skill(commit)",
       "Skill(create-pr)",
       "Skill(update-pr)",
@@ -85,7 +80,12 @@
     ],
     "deny": [],
     "ask": [
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git reset:*)",
+      "Bash(git restore:*)",
+      "Bash(git checkout:*)",
+      "Bash(rm:*)",
+      "Bash(gh api:*)"
     ],
     "defaultMode": "acceptEdits"
   },
