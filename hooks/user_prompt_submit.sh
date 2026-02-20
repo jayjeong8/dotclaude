@@ -36,7 +36,13 @@ mkdir -p "$LOG_DIR"
 if [[ ! "$prompt" =~ ^/ ]] && [[ ! "$prompt" =~ \.claude ]]; then
   cat << 'EOF'
 <user-prompt-submit-hook>
-[리마인더] 코드 변경 시: 한 단계 구현 → 린트 → /commit → 다음 단계. 여러 단계를 한꺼번에 구현하지 마세요.
+⚠️ [원자적 커밋 - 최우선 규칙]
+멀티 스텝 작업 시 반드시 아래 루프를 지켜야 합니다:
+  한 단계 구현 → 린트 → /commit → 다음 단계
+위반 금지사항:
+  - 여러 단계를 연속 구현한 뒤 마지막에 한 번 커밋하는 것
+  - TaskUpdate completed 처리 전에 커밋이 없는 것
+  - --amend로 이전 커밋에 합치는 것 (사용자 명시 요청 시에만 허용)
 </user-prompt-submit-hook>
 EOF
 fi
