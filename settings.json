@@ -75,6 +75,8 @@
       "mcp__playwright__browser_tab_close",
       "Bash(tmux:*)",
       "Skill(cdp)",
+      "Skill(ralph-loop)",
+      "Skill(cancel-ralph)",
       "mcp__playwright-cdp__browser_snapshot",
       "mcp__playwright-cdp__browser_navigate"
     ],
