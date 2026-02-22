@@ -77,6 +77,7 @@
       "Skill(cdp)",
       "Skill(ralph-loop)",
       "Skill(cancel-ralph)",
+      "Skill(verify-ui)",
       "mcp__playwright-cdp__browser_snapshot",
       "mcp__playwright-cdp__browser_navigate"
     ],
