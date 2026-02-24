@@ -81,7 +81,13 @@
       "mcp__playwright-cdp__browser_snapshot",
       "mcp__playwright-cdp__browser_navigate"
     ],
-    "deny": [],
+    "deny": [
+      "Read(.env)",
+      "Edit(.env)",
+      "Bash(cat .env*)",
+      "Bash(less .env*)",
+      "Bash(more .env*)"
+    ],
     "ask": [
       "Bash(git push:*)",
       "Bash(git reset:*)",
