@@ -78,6 +78,7 @@
       "Skill(cdp)",
       "Skill(ralph-loop)",
       "Skill(cancel-ralph)",
+      "Skill(slack-to-linear)",
       "Skill(log-monitoring)",
       "Bash(logcli:*)",
       "mcp__playwright-cdp__browser_snapshot",
