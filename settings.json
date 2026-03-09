@@ -135,6 +135,16 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/completion_notify.sh"
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
