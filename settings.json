@@ -78,6 +78,8 @@
       "Skill(cdp)",
       "Skill(ralph-loop)",
       "Skill(cancel-ralph)",
+      "Skill(log-monitoring)",
+      "Bash(logcli:*)",
       "mcp__playwright-cdp__browser_snapshot",
       "mcp__playwright-cdp__browser_navigate",
       "Bash(gh api:*)",
