@@ -79,7 +79,9 @@
       "Skill(ralph-loop)",
       "Skill(cancel-ralph)",
       "mcp__playwright-cdp__browser_snapshot",
-      "mcp__playwright-cdp__browser_navigate"
+      "mcp__playwright-cdp__browser_navigate",
+      "Bash(gh api:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [
       "Read(.env)",
@@ -92,9 +94,7 @@
       "Bash(git push:*)",
       "Bash(git reset:*)",
       "Bash(git restore:*)",
-      "Bash(git checkout:*)",
-      "Bash(rm:*)",
-      "Bash(gh api:*)"
+      "Bash(rm:*)"
     ],
     "defaultMode": "acceptEdits"
   },
