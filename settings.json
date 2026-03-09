@@ -130,7 +130,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '💡 코드 변경됨. /code-review, /naming, /stepwise-refactor 사용 가능'"
+            "command": "bash $HOME/.claude/hooks/post_edit_suggest.sh"
           }
         ]
       }
