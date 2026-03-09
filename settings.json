@@ -80,6 +80,7 @@
       "Skill(cancel-ralph)",
       "Skill(slack-to-linear)",
       "Skill(branch-workflow)",
+      "Skill(handoff)",
       "Skill(log-monitoring)",
       "Bash(logcli:*)",
       "mcp__playwright-cdp__browser_snapshot",
