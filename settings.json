@@ -86,7 +86,8 @@
       "mcp__playwright-cdp__browser_snapshot",
       "mcp__playwright-cdp__browser_navigate",
       "Bash(gh api:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(git push:* --set-upstream)"
     ],
     "deny": [
       "Read(.env)",
