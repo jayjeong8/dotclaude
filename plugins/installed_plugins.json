@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "plugins": {
+    "security-guidance@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/jay/.claude/plugins/cache/claude-plugins-official/security-guidance/205b6e0b3036",
+        "version": "205b6e0b3036",
+        "installedAt": "2026-03-09T05:17:43.224Z",
+        "lastUpdated": "2026-03-09T05:17:43.224Z",
+        "gitCommitSha": "205b6e0b30366a969412d9aab7b99bea99d58db1"
+      }
+    ]
+  }
+}
