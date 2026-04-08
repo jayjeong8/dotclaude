@@ -6,7 +6,7 @@ set -euo pipefail
 # - .claude/ 하위 수정 시: 제안 생략
 # - 테스트 파일 수정 시: /testcase 제안
 # - 3회 이상 연속 수정 (커밋 없이): /commit 제안
-# - 그 외 첫 수정: 전체 메시지
+# - 그 외에는 출력 없음 (잡음 방지)
 
 payload="$(cat)"
 
@@ -50,5 +50,5 @@ if [[ $count -ge 3 ]]; then
   exit 0
 fi
 
-# 첫 1~2회 수정: 전체 메시지
-echo "💡 코드 변경됨. /code-review, /naming, /stepwise-refactor 사용 가능"
+# 첫 1~2회 수정: 잡음 방지를 위해 아무 메시지도 출력하지 않음
+exit 0
