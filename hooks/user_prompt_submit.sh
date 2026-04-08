@@ -48,3 +48,15 @@ if [[ ! "$prompt" =~ ^/ ]] && [[ ! "$prompt" =~ \.claude ]] && echo "$prompt" | 
 </user-prompt-submit-hook>
 EOF
 fi
+
+# 7) "반영" / "적용" / "피드백 반영" 축약 명령은 PR 리뷰 피드백 반영 의도로 해석
+#    사용자가 /pr-review 직후 흔히 입력하므로 pr-fixup 에이전트 사용을 제안
+trimmed_prompt="$(echo "$prompt" | tr -d '[:space:]')"
+if [[ "$trimmed_prompt" == "반영" ]] || [[ "$trimmed_prompt" == "적용" ]] || [[ "$trimmed_prompt" == "피드백반영" ]] || [[ "$trimmed_prompt" == "리뷰반영" ]]; then
+  cat << 'EOF'
+<user-prompt-submit-hook>
+💡 [축약 명령 감지] "반영"/"적용"은 PR 리뷰 피드백 반영 의도로 해석됩니다.
+직전에 /pr-review를 실행했다면 `pr-fixup` 에이전트를 사용해 자동으로 피드백을 반영하세요.
+</user-prompt-submit-hook>
+EOF
+fi
