@@ -33,7 +33,9 @@ mkdir -p "$LOG_DIR"
 
 # 6) 코드 변경 작업 시 워크플로우 리마인더
 # 슬래시 명령어로 시작하거나 .claude 관련 작업은 제외
-if [[ ! "$prompt" =~ ^/ ]] && [[ ! "$prompt" =~ \.claude ]]; then
+# 추가: 코드 작업을 시사하는 키워드가 포함된 경우에만 출력 (질문/탐색 프롬프트 잡음 제거)
+CODE_WORK_PATTERN='구현|만들|작성|추가|수정|고쳐|리팩토|refactor|implement|add |fix |write |feature|build |create '
+if [[ ! "$prompt" =~ ^/ ]] && [[ ! "$prompt" =~ \.claude ]] && echo "$prompt" | grep -qiE "$CODE_WORK_PATTERN"; then
   cat << 'EOF'
 <user-prompt-submit-hook>
 ⚠️ [원자적 커밋 - 최우선 규칙]
